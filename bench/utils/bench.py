@@ -298,6 +298,9 @@ def patch_sites(bench_path="."):
 
 
 def restart_supervisor_processes(bench_path=".", web_workers=False, _raise=False):
+	if which("supervisorctl") is None:
+		return
+
 	from bench.bench import Bench
 
 	bench = Bench(bench_path)
@@ -561,15 +564,24 @@ def set_mariadb_host(host, bench_path="."):
 
 
 def set_redis_cache_host(host, bench_path="."):
-	update_common_site_config({"redis_cache": f"redis://{host}"}, bench_path=bench_path)
+	if isinstance(host, str) and not host.lower().startswith("redis"):
+		host = f"redis://{host}"
+
+	update_common_site_config({"redis_cache": host}, bench_path=bench_path)
 
 
 def set_redis_queue_host(host, bench_path="."):
-	update_common_site_config({"redis_queue": f"redis://{host}"}, bench_path=bench_path)
+	if isinstance(host, str) and not host.lower().startswith("redis"):
+		host = f"redis://{host}"
+
+	update_common_site_config({"redis_queue": host}, bench_path=bench_path)
 
 
 def set_redis_socketio_host(host, bench_path="."):
-	update_common_site_config({"redis_socketio": f"redis://{host}"}, bench_path=bench_path)
+	if isinstance(host, str) and not host.lower().startswith("redis"):
+		host = f"redis://{host}"
+
+	update_common_site_config({"redis_socketio": host}, bench_path=bench_path)
 
 
 def update_common_site_config(ddict, bench_path="."):
