@@ -369,9 +369,8 @@ class BenchSetup(Base):
 			else:
 				venv = get_venv_path(verbose=verbose, python=python)
 				self.run(f"{venv} env", cwd=self.bench.name)
-
-		self.pip()
-		self.wheel()
+				self.pip()
+				self.wheel()
 
 		if os.path.exists(frappe):
 				env = None
