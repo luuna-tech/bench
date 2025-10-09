@@ -47,7 +47,7 @@ logger = logging.getLogger(bench.PROJECT_NAME)
 
 
 class AppMeta:
-	def __init__(self, name: str, branch: str = None, to_clone: bool = True):
+	def __init__(self, name: str, branch: str | None = None, to_clone: bool = True):
 		"""
 		name (str): This could look something like
 		        1. https://github.com/frappe/healthcare.git
@@ -168,8 +168,8 @@ class App(AppMeta):
 	def __init__(
 		self,
 		name: str,
-		branch: str = None,
-		bench: "Bench" = None,
+		branch: str | None = None,
+		bench: "Bench | None" = None,
 		soft_link: bool = False,
 		cache_key=None,
 		*args,
@@ -680,13 +680,18 @@ def get_app(
 	from bench.bench import Bench
 	from bench.utils.app import check_existing_dir
 
-	if urlparse(git_url).scheme == "file" and cache_key:
-		git_url = coerce_url_to_name_if_possible(git_url, cache_key)
+	use_cached_app = False
 
 	bench = Bench(bench_path)
 	app = App(
 		git_url, branch=branch, bench=bench, soft_link=soft_link, cache_key=cache_key
 	)
+
+	if urlparse(git_url).scheme == "file" and cache_key:
+		if use_cached_app := app.get_cached():
+			git_url = coerce_url_to_name_if_possible(git_url, cache_key)
+			app = App(git_url, branch=branch, bench=bench, soft_link=soft_link, cache_key=cache_key)
+
 	git_url = app.url
 	repo_name = app.repo
 	branch = app.tag
@@ -746,7 +751,7 @@ def get_app(
 		)
 		return
 
-	if app.get_cached():
+	if use_cached_app:
 		app.install(
 			verbose=verbose,
 			skip_assets=skip_assets,

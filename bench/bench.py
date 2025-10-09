@@ -424,6 +424,11 @@ class BenchSetup(Base):
 		verbose = bench.cli.verbose or verbose
 		quiet_flag = "" if verbose else "--quiet"
 
+		if os.environ.get("BENCH_USE_UV"):
+			return self.run(
+				f"uv pip install {quiet_flag} --upgrade pip --python {self.bench.python}", cwd=self.bench.name
+			)
+
 		return self.run(
 			f"{self.bench.python} -m pip install {quiet_flag} --upgrade pip", cwd=self.bench.name
 		)
@@ -436,6 +441,11 @@ class BenchSetup(Base):
 
 		verbose = bench.cli.verbose or verbose
 		quiet_flag = "" if verbose else "--quiet"
+
+		if os.environ.get("BENCH_USE_UV"):
+			return self.run(
+				f"uv pip install {quiet_flag} wheel --python {self.bench.python}", cwd=self.bench.name
+			)
 
 		return self.run(
 			f"{self.bench.python} -m pip install {quiet_flag} wheel", cwd=self.bench.name
