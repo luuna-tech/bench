@@ -1,4 +1,4 @@
-VERSION = "5.25.10"
+VERSION = "5.25.11"
 PROJECT_NAME = "frappe-bench"
 FRAPPE_VERSION = None
 current_path = None
