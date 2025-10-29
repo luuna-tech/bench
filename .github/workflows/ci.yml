@@ -43,6 +43,7 @@ jobs:
         with:
           node-version: 18
       - run: |
+          sudo apt update -y;
           wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb;
           sudo apt install ./wkhtmltox_0.12.6.1-2.jammy_amd64.deb;
           sudo apt install redis-server
@@ -80,6 +81,7 @@ jobs:
         with:
           node-version: 18
       - run: |
+          sudo apt update -y;
           wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb;
           sudo apt install ./wkhtmltox_0.12.6.1-2.jammy_amd64.deb;
           sudo apt install redis-server
@@ -121,6 +123,7 @@ jobs:
           node-version: 18
 
       - run: |
+          sudo apt update -y;
           wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-2/wkhtmltox_0.12.6.1-2.jammy_amd64.deb;
           sudo apt install ./wkhtmltox_0.12.6.1-2.jammy_amd64.deb;
           sudo apt install redis-server pkg-config
