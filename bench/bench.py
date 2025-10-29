@@ -424,13 +424,16 @@ class BenchSetup(Base):
 		verbose = bench.cli.verbose or verbose
 		quiet_flag = "" if verbose else "--quiet"
 
+		if pip_version := os.environ.get("PIP_VERSION", ""):
+			pip_version = f"=={pip_version}"
+
 		if os.environ.get("BENCH_USE_UV"):
 			return self.run(
-				f"uv pip install {quiet_flag} --upgrade pip --python {self.bench.python}", cwd=self.bench.name
+				f"uv pip install {quiet_flag} --upgrade pip{pip_version} --python {self.bench.python}", cwd=self.bench.name
 			)
 
 		return self.run(
-			f"{self.bench.python} -m pip install {quiet_flag} --upgrade pip", cwd=self.bench.name
+			f"{self.bench.python} -m pip install {quiet_flag} --upgrade pip{pip_version}", cwd=self.bench.name
 		)
 
 	@step(title="Installing wheel", success="Installed wheel")
