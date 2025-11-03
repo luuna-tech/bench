@@ -13,6 +13,7 @@ from bench.app import get_repo_dir
 
 # imports - module imports
 from bench.exceptions import (
+	AppInstallationError,
 	CommandFailedError,
 	InvalidBranchException,
 	InvalidRemoteException,
@@ -227,7 +228,7 @@ def get_remote(app, bench_path="."):
 		return contents.splitlines()[0].split()[0]
 
 
-def get_app_name_from_setup(contents: str) -> str:
+def get_app_name_from_setup(contents: str) -> str | None:
 	"""Parse the ast to find the app name in setup.py"""
 	tree = ast.parse(contents)
 	for node in tree.body:
@@ -269,6 +270,12 @@ def get_app_name(bench_path: str, folder_name: str) -> str:
 			DeprecationWarning,
 		)
 			app_name = get_app_name_from_setup(f.read().decode("utf-8"))
+
+	if not app_name:
+		raise AppInstallationError(
+            "Could not determine the package name. Checked pyproject.toml, setup.cfg, and setup.py."
+        )
+
 
 	if app_name and folder_name != app_name:
 		os.rename(os.path.join(apps_path, folder_name), os.path.join(apps_path, app_name))
