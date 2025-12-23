@@ -37,6 +37,15 @@ sudoers_file = "/etc/sudoers.d/frappe"
 UNSET_ARG = object()
 
 
+def use_uv() -> bool:
+	"""Check if UV should be used for Python package management.
+
+	UV is enabled by default. Set BENCH_DISABLE_UV=1 (or "true"/"yes") to disable.
+	"""
+	val = os.environ.get("BENCH_DISABLE_UV", "").lower()
+	return val not in ("1", "true", "yes")
+
+
 def is_bench_directory(directory=os.path.curdir):
 	is_bench = True
 
