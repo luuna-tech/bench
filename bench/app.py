@@ -35,6 +35,7 @@ from bench.utils import (
 	log,
 	run_frappe_cmd,
 	get_file_md5,
+	use_uv,
 )
 from bench.utils.bench import build_assets, install_python_dev_dependencies
 from bench.utils.render import step
@@ -268,7 +269,7 @@ class App(AppMeta):
 
 	@step(title="Uninstalling App {repo}", success="App {repo} Uninstalled")
 	def uninstall(self):
-		if os.environ.get("BENCH_USE_UV"):
+		if use_uv():
 			self.bench.run(f"uv pip uninstall {self.name} --python {self.bench.python}")
 		else:
 			self.bench.run(f"{self.bench.python} -m pip uninstall -y {self.name}")
@@ -931,7 +932,7 @@ def install_app(
 				"PKG_CONFIG_PATH": get_mariadb_pkgconfig_path(),
 			}
 
-	if os.environ.get("BENCH_USE_UV"):
+	if use_uv():
 		try:
 			bench.run(
 				f"uv pip install {quiet_flag} --upgrade -e {app_path} {cache_flag} --python {bench.python}",
