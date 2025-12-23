@@ -253,10 +253,10 @@ def pip(ctx, args):
 	from bench.utils import use_uv
 	from bench.utils.bench import get_env_cmd
 
+	env_py = get_env_cmd("python")
 	if use_uv() and (env_uv := shutil.which("uv")):
-		os.execv(env_uv, (env_uv, "pip") + args)
+		os.execv(env_uv, (env_uv, "pip") + args + ("--python", env_py))
 	else:
-		env_py = get_env_cmd("python")
 		os.execv(env_py, (env_py, "-m", "pip") + args)
 
 
