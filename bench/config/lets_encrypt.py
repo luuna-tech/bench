@@ -175,7 +175,7 @@ def setup_wildcard_ssl(domain, email, bench_path, exclude_base_domain, custom_se
 	try:
 		exec_cmd(
 			f"{get_certbot_path()} certonly --manual --preferred-challenges=dns {email_param} "
-			f"{server_param} "
+			f"{sp + ' ' if (sp := server_param) else ''}"
 			f"--agree-tos -d {' -d '.join(domain_list)}"
 		)
 
