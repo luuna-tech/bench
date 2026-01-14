@@ -231,6 +231,16 @@ def setup_logging(bench_path=".") -> logging.Logger:
 
 
 def get_process_manager() -> str:
+	# honcho is a dependency, try to get the executable from the same bin dir as bench
+	bench_bin = which("bench")
+	if bench_bin:
+		# resolve symlink (if any) to get the actual bin directory
+		bin_dir = Path(bench_bin).resolve().parent
+		honcho_path = bin_dir / "honcho"
+		if honcho_path.exists():
+			return str(honcho_path)
+
+	# fallback to PATH lookup
 	for proc_man in ["honcho", "foreman", "forego"]:
 		proc_man_path = which(proc_man)
 		if proc_man_path:
