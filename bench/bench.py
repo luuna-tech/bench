@@ -361,7 +361,6 @@ class BenchSetup(Base):
 
 		frappe = os.path.join(self.bench.name, "apps", "frappe")
 		quiet_flag = "" if verbose else "--quiet"
-
 		if not os.path.exists(self.bench.python):
 			if os.environ.get("BENCH_USE_UV"):
 				self.run("uv venv env", cwd=self.bench.name)
@@ -386,7 +385,7 @@ class BenchSetup(Base):
 
 				if os.environ.get("BENCH_USE_UV"):
 					self.run(
-						f"uv pip install {quiet_flag} --upgrade -e {frappe} --python {self.bench.python}",
+						f"uv pip install {quiet_flag} -e {frappe} --python {self.bench.python}",
 						cwd=self.bench.name, env=env,
 					)
 				else:

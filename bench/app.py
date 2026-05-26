@@ -926,7 +926,7 @@ def install_app(
 
 	if os.environ.get("BENCH_USE_UV"):
 		bench.run(
-			f"uv pip install {quiet_flag} --upgrade -e {app_path} {cache_flag} --python {bench.python}", env=env
+			f"uv pip install {quiet_flag} -e {app_path} {cache_flag} --python {bench.python}", env=env
 		)
 	else:
 		bench.run(
