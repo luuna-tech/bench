@@ -525,7 +525,7 @@ class BenchSetup(Base):
 					}
 
 			if os.environ.get("BENCH_USE_UV"):
-				self.run(f"uv pip install {quiet_flag} --upgrade -e {app_path} --python {self.bench.python}", env=env)
+				self.run(f"uv pip install {quiet_flag} -e {app_path} --python {self.bench.python}", env=env)
 			else:
 				self.run(f"{self.bench.python} -m pip install {quiet_flag} --upgrade -e {app_path}", env=env)
 
