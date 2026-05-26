@@ -44,8 +44,8 @@ logger = logging.getLogger(bench.PROJECT_NAME)
 
 
 class Base:
-	def run(self, cmd, cwd=None, _raise=True):
-		return exec_cmd(cmd, cwd=cwd or self.cwd, _raise=_raise)
+	def run(self, cmd, cwd=None, _raise=True, env=None):
+		return exec_cmd(cmd, cwd=cwd or self.cwd, _raise=_raise, env=env)
 
 
 class Validator:
