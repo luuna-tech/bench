@@ -34,6 +34,7 @@ from bench.utils.bench import (
 )
 from bench.utils.render import job, step
 from bench.utils.app import get_current_version
+from bench.utils.system import get_mariadb_pkgconfig_path, check_pkg_config
 from bench.app import is_git_repo
 
 
