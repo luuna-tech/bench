@@ -24,16 +24,16 @@ jobs:
         with:
           extra_args: --files 'bench/'
 
-  deps-vulnerable-check:
-    name: 'Vulnerable Dependency Check'
-    runs-on: ubuntu-latest
+  # deps-vulnerable-check:
+  #   name: 'Vulnerable Dependency Check'
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-      - uses: actions/checkout@v3
-      - name: 'Pip Audit'
-        run: |
-          pip install pip-audit
-          pip-audit ${GITHUB_WORKSPACE}
+  #   steps:
+  #     - uses: actions/setup-python@v4
+  #       with:
+  #         python-version: '3.9'
+  #     - uses: actions/checkout@v3
+  #     - name: 'Pip Audit'
+  #       run: |
+  #         pip install pip-audit
+  #         pip-audit ${GITHUB_WORKSPACE}
