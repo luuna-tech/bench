@@ -895,6 +895,7 @@ def install_app(
 ):
 	import bench.cli as bench_cli
 	from bench.bench import Bench
+
 	install_text = f"Installing {app}"
 	click.secho(install_text, fg="yellow")
 	logger.log(install_text)
