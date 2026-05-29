@@ -895,7 +895,6 @@ def install_app(
 ):
 	import bench.cli as bench_cli
 	from bench.bench import Bench
-	from bench.utils.system import get_mariadb_pkgconfig_path, check_pkg_config
 	install_text = f"Installing {app}"
 	click.secho(install_text, fg="yellow")
 	logger.log(install_text)
