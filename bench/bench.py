@@ -422,7 +422,7 @@ class BenchSetup(Base):
 
 		if os.environ.get("BENCH_USE_UV"):
 			return self.run(
-				f"uv pip install {quiet_flag} pip==23.3.2 setuptools==79.0.1 --python {self.bench.python}", cwd=self.bench.name
+				f"uv pip install {quiet_flag} pip==23.3.2 setuptools==61.3.1 --python {self.bench.python}", cwd=self.bench.name
 			)
 
 		return self.run(
